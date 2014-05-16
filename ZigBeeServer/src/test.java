@@ -9,8 +9,6 @@ import model.SensorData;
 import model.Sensoren;
 
 
-
-
 public class test {
 
 	public static void main(String[] args) {
@@ -18,20 +16,18 @@ public class test {
 		factory=Persistence.createEntityManagerFactory("ZigBeeServer");
 		EntityManager em= factory.createEntityManager();
 		
-		Sensoren testsensor=new Sensoren();
-		em.getTransaction().begin();
-		em.persist(testsensor);
-		em.getTransaction().commit();
+
 		
 
 		//Query Test gib mir den Sensor(id), dem ich Sensor_Daten hinzufügen will . Sensor nachricht muss ID beinhalten
 				
-		Query q1 = em.createQuery("SELECT e FROM Sensor e ");
+		Query q1 = em.createQuery("SELECT e FROM Sensoren e ");
 		
 		List<Sensoren> eintraegeSensor = q1.getResultList();
 		    for(Sensoren e:eintraegeSensor){
 		    	
 		    	if(e.getIdSensoren()==1){ //Sensor ID !
+		    	
 		    	SensorData neueDaten=new SensorData();
 		    	neueDaten.setTimeStamp(new java.sql.Date(System.currentTimeMillis()));
 		    	neueDaten.setWert("over9000");
@@ -39,14 +35,8 @@ public class test {
 		    	em.getTransaction().begin();
 		    	em.persist(neueDaten);
 		    	em.getTransaction().commit();
-		    	}
-		    	
-		    	
-		    }
-		    
-		    
-
-			
+		    	}		    			    	
+		    }		    
 			em.close();
 
 	}
