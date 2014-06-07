@@ -13,69 +13,35 @@ import model.Sensoren;
 public class DBConnection {
 
 public static void main(String[] args) {
-
-//fillDBWithSensorData(1,"gsgwse");
 	
-	ParseAndWrite("1234.adolf.5.wert");
+	ParseAndWrite("csuid123.00.1.hehe#csuid337.01.1.lel");
 	}
 
 
-public static void ParseAndWrite(String ContentString){
+public static void ParseAndWrite(String raw){
 	String CSUID= new String() ,ShortID= new String(),SensorID= new String(),Wert= new String();
-	int i=0;int pointcountr=0;
-	//1.CSUID 2.ShortID 3.SensorID 4.Wert 
-	char ContentArray[]= ContentString.toCharArray();
-	System.out.println("initial String "+ContentString);
 	
-	while(i<ContentArray.length){
-		/*if(ContentArray[i]=='.'){
-			pointcountr++;
-		}
+	//1.CSUID 2.ShortID 3.SensorID 4.Wert 
+	 
+	String[] split_by_csuid = raw.split("#");
+	for (String s : split_by_csuid) {
+		String[] split_by_values = s.split("\\.");
+		//System.out.println("Teilstring: " + s);
 		
-		if (pointcountr==0){
-		CSUID =ContentArray[i]+CSUID;
-		}
-		else if(pointcountr==1){
-			ShortID=ContentArray[i]+ShortID;
-		}
-		else if(pointcountr==2){
-			SensorID=ContentArray[i]+SensorID;
-		}
-		else if (pointcountr==3){
-			Wert=ContentArray[i]+Wert;
-		}
+		CSUID=split_by_values[0];
+		ShortID=split_by_values[1];
+		SensorID=split_by_values[2];
+		Wert=split_by_values[3];
+				
+//		System.out.println("CSUID: " + CSUID);
+//		System.out.println("ShortID: " + ShortID);
+//		System.out.println("SensorID: " + SensorID);
+//		System.out.println("Wert: " + Wert);
 		
-		else if(ContentArray[i]=='#'){
-			pointcountr=0;
-		}
-		i++;
-		*/
-		if (ContentArray[i]=='.')
-		{
-			i++;
-			pointcountr++;
-		}
-		
-		else if(ContentArray[i] =='#')
-		{
-			String rest=null;
-			ParseAndWrite(rest);
-		}	
+		fillDBWithSensorData(Integer.parseInt(SensorID),Wert);
 
-		switch (pointcountr)
-		{
-		case 0: CSUID +=ContentArray[i];break;
-		case 1: ShortID+=ContentArray[i];break;
-		case 2: SensorID+=ContentArray[i];break;
-		case 3: Wert+=ContentArray[i];break;
-		default: System.out.println("Fehler");break;
-		}
-		i++;
 	}
-	System.out.println(CSUID);
-	System.out.println(ShortID);
-	System.out.println(SensorID);
-	System.out.println(Wert);
+
 }
 
 
@@ -87,7 +53,7 @@ public static void ParseAndWrite(String ContentString){
 			factory=Persistence.createEntityManagerFactory("ZigBeeServer");
 			EntityManager em= factory.createEntityManager();	
 	
-			//Query Test gib mir den Sensor(id), dem ich Sensor_Daten hinzufügen will . Sensor nachricht muss ID beinhalten	
+			//Query Test gib mir den Sensor(id), dem ich Sensor_Daten hinzufÃ¼gen will . Sensor nachricht muss ID beinhalten	
 			Query q1 = em.createQuery("SELECT e FROM Sensoren e ");//returns List of Sensoren
 	
 			List<Sensoren> eintraegeSensor = q1.getResultList();
