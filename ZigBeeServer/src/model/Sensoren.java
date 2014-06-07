@@ -22,15 +22,15 @@ public class Sensoren implements Serializable {
 	@OneToMany(mappedBy="sensoren")
 	private List<SensorData> sensorData;
 
-	//bi-directional many-to-one association to SensorTyp
-	@ManyToOne
-	@JoinColumn(name="SensorTyp_ID")
-	private SensorTyp sensorTyp;
-
 	//bi-directional many-to-one association to Device
 	@ManyToOne
 	@JoinColumn(name="Device_ID")
 	private Device device;
+
+	//bi-directional many-to-one association to SensorTyp
+	@ManyToOne
+	@JoinColumn(name="SensorTyp_ID")
+	private SensorTyp sensorTyp;
 
 	public Sensoren() {
 	}
@@ -65,20 +65,20 @@ public class Sensoren implements Serializable {
 		return sensorData;
 	}
 
-	public SensorTyp getSensorTyp() {
-		return this.sensorTyp;
-	}
-
-	public void setSensorTyp(SensorTyp sensorTyp) {
-		this.sensorTyp = sensorTyp;
-	}
-
 	public Device getDevice() {
 		return this.device;
 	}
 
 	public void setDevice(Device device) {
 		this.device = device;
+	}
+
+	public SensorTyp getSensorTyp() {
+		return this.sensorTyp;
+	}
+
+	public void setSensorTyp(SensorTyp sensorTyp) {
+		this.sensorTyp = sensorTyp;
 	}
 
 }

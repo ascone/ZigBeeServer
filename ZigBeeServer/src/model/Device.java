@@ -24,6 +24,8 @@ public class Device implements Serializable {
 
 	private String device_PosY;
 
+	private int idDevice_short;
+
 	//bi-directional many-to-one association to Sensoren
 	@OneToMany(mappedBy="device")
 	private List<Sensoren> sensorens;
@@ -61,6 +63,14 @@ public class Device implements Serializable {
 
 	public void setDevice_PosY(String device_PosY) {
 		this.device_PosY = device_PosY;
+	}
+
+	public int getIdDevice_short() {
+		return this.idDevice_short;
+	}
+
+	public void setIdDevice_short(int idDevice_short) {
+		this.idDevice_short = idDevice_short;
 	}
 
 	public List<Sensoren> getSensorens() {
