@@ -153,8 +153,8 @@ class Connection extends Thread {
 			{
 				case "version": out.println(MainServ.getVersion());break;
 				case "restart": Runtime.getRuntime().exec("/ZigBeeServer/Scripts/toggleServer.sh"); break;
-				case "dbstatus": out.println(DBConnection.TestDB());break;
-				case "dbentrys": out.println(DBConnection.HowManyEntriesInSensorData());break;
+				case "dbstatus": dbStatus(); break;
+				case "dbentrys": out.println(String.valueOf(DBConnection.HowManyEntriesInSensorData()));break;
 				case "auswertung": break;
 				default: break;
 			
@@ -162,7 +162,20 @@ class Connection extends Thread {
 		
 	}
 
+	private void dbStatus() {
+		out.println(DBConnection.TestDB());
+		if(DBConnection.TestDB()==true){
+			out.println("ON");
+		}
+		else {
+			out.println("OFF");
+		}
+		
+	}
+
 	private void testMode(String input) {
+		
+		DBConnection.ParseAndWrite(input);
 		
 		String HEADER ="Daten Log für Test Verbindungen";		
 		
