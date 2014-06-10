@@ -14,7 +14,10 @@ public class DBConnection {
 
 public static void main(String[] args) {
 	
-	ParseAndWrite("csuid123.00.1.hehe#csuid337.01.1.lel");
+	//ParseAndWrite("csuid123.00.1.hehe#csuid337.01.1.lel");
+	
+	System.out.println(TestDB());
+	
 	}
 
 
@@ -44,6 +47,17 @@ public static void ParseAndWrite(String raw){
 
 }
 
+public static boolean TestDB(){
+	try{
+		EntityManagerFactory factory;
+		factory=Persistence.createEntityManagerFactory("ZigBeeServer");
+		EntityManager em= factory.createEntityManager();
+		Query q1 = em.createQuery("SELECT e FROM Sensoren e ");
+	}catch(Exception e){
+		return false;
+	}
+	return true;
+}
 
 	//param CSUID? SensorID,Daten,(nicht datum)	
 	public static boolean fillDBWithSensorData(int SensorID,String Data){
