@@ -1,3 +1,4 @@
+package DBConnector;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -9,20 +10,20 @@ import model.Device;
 import model.SensorData;
 import model.Sensoren;
 
-
+//zig_feed pw: Efedemini555
 public class DBConnection {
 
 public static void main(String[] args) {
 	
-	//ParseAndWrite("csuid123.00.1.hehe#csuid337.01.1.lel");
+	//ParseAndWrite("csuid123.00.1.lol#csuid337.01.1.soos#");
 	
-	System.out.println(TestDB());
+	System.out.println(HowManyEntriesInSensorData());
 	
 	}
 
 
 public static void ParseAndWrite(String raw){
-	String CSUID= new String() ,ShortID= new String(),SensorID= new String(),Wert= new String();
+	String CSUID= new String() ,ShortCSUID= new String(),SensorID= new String(),Wert= new String();
 	
 	//1.CSUID 2.ShortID 3.SensorID 4.Wert 
 	 
@@ -32,14 +33,10 @@ public static void ParseAndWrite(String raw){
 		//System.out.println("Teilstring: " + s);
 		
 		CSUID=split_by_values[0];
-		ShortID=split_by_values[1];
+		ShortCSUID=split_by_values[1];
 		SensorID=split_by_values[2];
 		Wert=split_by_values[3];
-				
-//		System.out.println("CSUID: " + CSUID);
-//		System.out.println("ShortID: " + ShortID);
-//		System.out.println("SensorID: " + SensorID);
-//		System.out.println("Wert: " + Wert);
+
 		
 		fillDBWithSensorData(Integer.parseInt(SensorID),Wert);
 
@@ -47,12 +44,30 @@ public static void ParseAndWrite(String raw){
 
 }
 
+public static int HowManyEntriesInSensorData(){
+	
+	try{
+		EntityManagerFactory factory;
+		factory=Persistence.createEntityManagerFactory("ZigBeeServer");
+		EntityManager em= factory.createEntityManager();
+		Query q1 = em.createQuery("SELECT e FROM SensorData e ");
+		List<SensorData> eintraegeSensorData = q1.getResultList();
+		return eintraegeSensorData.size();
+	}catch(Exception e){
+		return -1;
+	}	
+}
+	
+
+
 public static boolean TestDB(){
 	try{
 		EntityManagerFactory factory;
 		factory=Persistence.createEntityManagerFactory("ZigBeeServer");
 		EntityManager em= factory.createEntityManager();
-		Query q1 = em.createQuery("SELECT e FROM Sensoren e ");
+		Query q1 = em.createQuery("SELECT e FROM SensorData e ");
+		
+		
 	}catch(Exception e){
 		return false;
 	}
@@ -84,10 +99,9 @@ public static boolean TestDB(){
 		    }		    
 			em.close();
 		
-	
-		
-		
-
 }
+	
+
+	
 
 }
