@@ -7,8 +7,8 @@
 		<class>model.Sensoren</class>
 		<properties>
 			<property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/zig"/>
-			<property name="javax.persistence.jdbc.user" value="root"/>
-			<property name="javax.persistence.jdbc.password" value="asd123"/>
+			<property name="javax.persistence.jdbc.user" value="zig_feed"/>
+			<property name="javax.persistence.jdbc.password" value="Efedemini555"/>
 			<property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver"/>
 		</properties>
 	</persistence-unit>

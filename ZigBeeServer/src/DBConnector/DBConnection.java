@@ -13,14 +13,6 @@ import model.Sensoren;
 //zig_feed pw: Efedemini555
 public class DBConnection {
 
-public static void main(String[] args) {
-	
-	//ParseAndWrite("csuid123.00.1.lol#csuid337.01.1.soos#");
-	
-	System.out.println(HowManyEntriesInSensorData());
-	
-	}
-
 
 public static void ParseAndWrite(String raw){
 	String CSUID= new String() ,ShortCSUID= new String(),SensorID= new String(),Wert= new String();
