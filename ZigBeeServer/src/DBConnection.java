@@ -60,9 +60,8 @@ public static boolean TestDB(){
 }
 
 	//param CSUID? SensorID,Daten,(nicht datum)	
-	public static boolean fillDBWithSensorData(int SensorID,String Data){
-		try
-		{
+	public static void fillDBWithSensorData(int SensorID,String Data){
+		
 			EntityManagerFactory factory;
 			factory=Persistence.createEntityManagerFactory("ZigBeeServer");
 			EntityManager em= factory.createEntityManager();	
@@ -84,11 +83,8 @@ public static boolean TestDB(){
 		    	}		    			    	
 		    }		    
 			em.close();
-		}catch(Exception e)
-			{
-				return false;
-			}
-		return true;
+		
+	
 		
 		
 
