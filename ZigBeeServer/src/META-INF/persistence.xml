@@ -5,6 +5,7 @@
 		<class>model.SensorData</class>
 		<class>model.SensorTyp</class>
 		<class>model.Sensoren</class>
+		<class>model.UuidShortLog</class>
 		<properties>
 			<property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/zig"/>
 			<property name="javax.persistence.jdbc.user" value="zig_feed"/>

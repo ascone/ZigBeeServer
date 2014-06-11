@@ -30,6 +30,10 @@ public class Device implements Serializable {
 	@OneToMany(mappedBy="device")
 	private List<Sensoren> sensorens;
 
+	//bi-directional many-to-one association to UuidShortLog
+	@OneToMany(mappedBy="device")
+	private List<UuidShortLog> uuidShortLogs;
+
 	public Device() {
 	}
 
@@ -93,6 +97,28 @@ public class Device implements Serializable {
 		sensoren.setDevice(null);
 
 		return sensoren;
+	}
+
+	public List<UuidShortLog> getUuidShortLogs() {
+		return this.uuidShortLogs;
+	}
+
+	public void setUuidShortLogs(List<UuidShortLog> uuidShortLogs) {
+		this.uuidShortLogs = uuidShortLogs;
+	}
+
+	public UuidShortLog addUuidShortLog(UuidShortLog uuidShortLog) {
+		getUuidShortLogs().add(uuidShortLog);
+		uuidShortLog.setDevice(this);
+
+		return uuidShortLog;
+	}
+
+	public UuidShortLog removeUuidShortLog(UuidShortLog uuidShortLog) {
+		getUuidShortLogs().remove(uuidShortLog);
+		uuidShortLog.setDevice(null);
+
+		return uuidShortLog;
 	}
 
 }
