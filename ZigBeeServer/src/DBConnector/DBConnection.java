@@ -16,7 +16,7 @@ import model.UuidShortLog;
 //zig_feed pw: Efedemini555
 public class DBConnection {
 
-	static ErrorHandler err;
+	static ErrorHandler err; //Errorhandler zum Analysieren von Fehlern
 //	public static void main(String args[]){                 Zum Testen Nutzen
 //		ParseAndWrite("1.4.1.wert123#1.5.1.2erwert");
 //	}
@@ -48,7 +48,7 @@ public static int HowManyEntriesInSensorData(){
 		List<SensorData> eintraegeSensorData = q1.getResultList();
 		return eintraegeSensorData.size();
 	}catch(Exception e){
-		 err=(ErrorHandler) new TcpConnection.ErrorHandler("Fehler beim checken der Sensor Daten :" + e.getMessage() );
+		 err=(ErrorHandler) new TcpConnection.ErrorHandler("Fehler beim checken der Sensor Daten :" + e.getMessage() ); //Fehlerabfang
 		return -1;
 	}	
 }
@@ -58,7 +58,7 @@ public static boolean TestDB(){
 		Query q1 = EntityManagerUtil.em.createQuery("SELECT e FROM SensorData e ");		
 	}catch(Exception e){
 		
-		 err=(ErrorHandler) new TcpConnection.ErrorHandler("Fehler: Db offline?! :" + e.getMessage() );
+		 err=(ErrorHandler) new TcpConnection.ErrorHandler("Fehler: Db offline?! :" + e.getMessage() ); //Fehlerabfang
 		return false;
 	}
 	return true;
