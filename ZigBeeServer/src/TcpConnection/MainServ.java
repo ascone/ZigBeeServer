@@ -139,7 +139,10 @@ class Connection extends Thread {
 		{
 			error=new ErrorHandler("Input Fehler: Befehl nicht gefunden! : " +befehl);
 		}
-		writeToAll(befehl);
+		else
+		{
+			writeToAll(befehl);
+		}
 		
 	}
 
@@ -177,8 +180,8 @@ class Connection extends Thread {
 		
 		String HEADER ="Daten Log für Test Verbindungen";		
 		
-		File dir = new File("/ZigBeeServer/TestDaten");						
-		File file =new File("/ZigBeeServer/TestDaten/daten.log");		
+		File dir = new File("/ZigBeeServer/Datenlog");						
+		File file =new File("/ZigBeeServer/Datenlog/daten.log");		
 		
 		
 			if(!dir.exists())
@@ -206,7 +209,7 @@ class Connection extends Thread {
 			{
 				FileWriter fileWritter = new FileWriter(file.getAbsoluteFile(),true);	//appaned mode true(Textanhängen)
 	    	    BufferedWriter bufferWritter = new BufferedWriter(fileWritter);
-	    	    String daten = "Daten erhalten!: WERT: " + input;
+	    	    String daten = ErrorHandler.getTime()+" Daten erhalten!: WERT: " + input;
 	    	    
 	    	    bufferWritter.write(daten);
 	    	    bufferWritter.newLine();
