@@ -10,7 +10,7 @@ import java.util.List;
  * 
  */
 @Entity
-@Table(name="sensor_typ")
+@Table(name="Sensor_Typ")
 @NamedQuery(name="SensorTyp.findAll", query="SELECT s FROM SensorTyp s")
 public class SensorTyp implements Serializable {
 	private static final long serialVersionUID = 1L;
