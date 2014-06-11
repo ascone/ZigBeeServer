@@ -9,9 +9,14 @@ import javax.persistence.Query;
 import model.Device;
 import model.SensorData;
 import model.Sensoren;
+import model.UuidShortLog;
 
 //zig_feed pw: Efedemini555
 public class DBConnection {
+	
+	public static void main(String args[]){
+		ParseAndWrite("1.2.1.wert123#1.3.1.2erwert");
+	}
 
 
 public static void ParseAndWrite(String raw){
@@ -29,8 +34,9 @@ public static void ParseAndWrite(String raw){
 		SensorID=split_by_values[2];
 		Wert=split_by_values[3];
 
-		
+		checkCsuid(Integer.parseInt(CSUID),Integer.parseInt(ShortCSUID));
 		fillDBWithSensorData(Integer.parseInt(SensorID),Wert);
+		
 
 	}
 
@@ -91,9 +97,63 @@ public static boolean TestDB(){
 		    }		    
 			em.close();
 		
-}
+}	
 	
+public static void checkCsuid(int CSUID,int ShortCSUID){
 
-	
+EntityManagerFactory factory;
+factory=Persistence.createEntityManagerFactory("ZigBeeServer");
+EntityManager em= factory.createEntityManager();	
+Query q1 = em.createQuery("SELECT e FROM UuidShortLog e ");
+List<UuidShortLog> eintraegeLog=q1.getResultList();
+if(eintraegeLog.size()==0){
+	System.out.println("LOG EMPTY");
+	Query q2 = em.createQuery("SELECT e FROM Device e ");
+	List<Device> eintraegeDev=q2.getResultList();
+	for(Device d:eintraegeDev){
+		if(d.getIdDevice()==CSUID){		
+			UuidShortLog log =new UuidShortLog();
+			log.setTtimestamp(new java.sql.Date(System.currentTimeMillis()));
+			log.setDevice(d);
+			log.setUUID_short(ShortCSUID);
+			em.getTransaction().begin();
+	    	em.persist(log);
+	    	em.getTransaction().commit();
+}
 
 }
+	}
+
+else{
+	for(UuidShortLog e:eintraegeLog){
+		if(e.getDevice().getIdDevice()==CSUID & e.getUUID_short()==ShortCSUID ){
+			System.out.println("SCHON VORHANDEN");
+			return;
+		}
+	}
+		
+			System.out.println("UNTERSCHIED zwischen CSUID UND SHORTCSUID FESTGESTELLT");
+			
+			Query q2 = em.createQuery("SELECT e FROM Device e ");
+			List<Device> eintraegeDev=q2.getResultList();
+			for(Device d:eintraegeDev){
+				if(d.getIdDevice()==CSUID){		
+					UuidShortLog log =new UuidShortLog();
+					log.setTtimestamp(new java.sql.Date(System.currentTimeMillis()));
+					log.setDevice(d);
+					log.setUUID_short(ShortCSUID);
+					em.getTransaction().begin();
+			    	em.persist(log);
+			    	em.getTransaction().commit();
+					}
+				
+			}			
+			
+		}
+		
+	
+}
+
+}
+
+
