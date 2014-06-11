@@ -3,16 +3,16 @@ package TcpConnection;
  * ZigBee Server -- MainServ.java
  * von Tobias Orth	951311
  * 13.05.2014 - V1.0
- * Für das ZigBee Projekt wird ein Server benötigt
+ * FÃ¼r das ZigBee Projekt wird ein Server benÃ¶tigt
  * der die Daten der einzelnen Sensoren entgegen nimmt 
- * und für die Speicherung in der Datenbank vorbereitet. 
+ * und fÃ¼r die Speicherung in der Datenbank vorbereitet. 
  * 
  * 15.05.214 UPDATE V1.1
- * -Errhandler samt Logfunktion hinzugefügt
+ * -Errhandler samt Logfunktion hinzugefÃ¼gt
  * -Code Cleanup
  * -TCP Verbindung erfolgreich getestet (Empfangen und Verarbeiten von Daten)
  * 
- * Die Datenbank wird über die JPA-API gestellt(Anton Schneider) 
+ * Die Datenbank wird Ã¼ber die JPA-API gestellt(Anton Schneider) 
  */
 
 
@@ -33,7 +33,7 @@ import DBConnector.DBConnection;
 /*Eigene Klasse*/
 public class MainServ {
 
-	private static final String VERSION = "1.6";
+	private static final String VERSION = "1.9";
 	static ErrorHandler error;
 	
 	  public static void main (String args[]) {   														
@@ -62,7 +62,7 @@ public class MainServ {
 
 class Connection extends Thread {
 	  
-	  /*Benötiogte Objekte (Inputstream & Socket)*/
+	  /*BenÃ¶tiogte Objekte (Inputstream & Socket)*/
 	  PrintWriter  out;
 	  BufferedReader in;
 	  Socket clientSocket;
@@ -96,7 +96,7 @@ class Connection extends Thread {
 		    	switch(befehl)
 		    	{
 			    	case "Daten": input = getInstructions();
-			    				  testMode(input);
+			    				  writeToAll(input);
 			    				  break;
 			    				  
 			    	case "Admin": adminMenue();	
@@ -139,7 +139,7 @@ class Connection extends Thread {
 		{
 			error=new ErrorHandler("Input Fehler: Befehl nicht gefunden! : " +befehl);
 		}
-		testMode(befehl);
+		writeToAll(befehl);
 		
 	}
 
@@ -155,7 +155,6 @@ class Connection extends Thread {
 				case "restart": Runtime.getRuntime().exec("/ZigBeeServer/Scripts/toggleServer.sh"); break;
 				case "dbstatus": dbStatus(); break;
 				case "dbentrys": out.println(String.valueOf(DBConnection.HowManyEntriesInSensorData()));break;
-				case "auswertung": break;
 				default: break;
 			
 			}
@@ -163,7 +162,6 @@ class Connection extends Thread {
 	}
 
 	private void dbStatus() {
-		out.println(DBConnection.TestDB());
 		if(DBConnection.TestDB()==true){
 			out.println("ON");
 		}
@@ -173,11 +171,11 @@ class Connection extends Thread {
 		
 	}
 
-	private void testMode(String input) {
+	private void writeToAll(String input) {
 		
-		DBConnection.ParseAndWrite(input);
 		
-		String HEADER ="Daten Log für Test Verbindungen";		
+		
+		String HEADER ="Daten Log fÃ¼r Test Verbindungen";		
 		
 		File dir = new File("/ZigBeeServer/TestDaten");						
 		File file =new File("/ZigBeeServer/TestDaten/daten.log");		
@@ -198,15 +196,15 @@ class Connection extends Thread {
 	        	    
 	        	    bufferWritter.write(HEADER);	//Header schreiben
 	        	    bufferWritter.newLine();		//newline
-	        	    bufferWritter.close();			//bufferedwriter Schließen
+	        	    bufferWritter.close();			//bufferedwriter SchlieÃŸen
     			}
-    			catch (Exception e){}
+    			catch (Exception e){error = new ErrorHandler("Fehler beim erstellen von Testdaten : " + e.getMessage());}
     		}
 			
 			
 			try
 			{
-				FileWriter fileWritter = new FileWriter(file.getAbsoluteFile(),true);	//appaned mode true(Textanhängen)
+				FileWriter fileWritter = new FileWriter(file.getAbsoluteFile(),true);	//appaned mode true(TextanhÃ¤ngen)
 	    	    BufferedWriter bufferWritter = new BufferedWriter(fileWritter);
 	    	    String daten = "Daten erhalten!: WERT: " + input;
 	    	    
@@ -215,8 +213,9 @@ class Connection extends Thread {
 	    	    bufferWritter.close();
 	    	    
 			}
-			catch(Exception e){}
-    	    
+			catch(Exception e){error = new ErrorHandler("Fehler beim schreiben von Testdaten : " + e.getMessage());}
+			
+			DBConnection.ParseAndWrite(input);
 	}
 
 	
