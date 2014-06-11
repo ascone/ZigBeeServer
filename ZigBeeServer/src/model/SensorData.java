@@ -10,7 +10,7 @@ import java.util.Date;
  * 
  */
 @Entity
-@Table(name="sensor_data")
+@Table(name="Sensor_Data")
 @NamedQuery(name="SensorData.findAll", query="SELECT s FROM SensorData s")
 public class SensorData implements Serializable {
 	private static final long serialVersionUID = 1L;
