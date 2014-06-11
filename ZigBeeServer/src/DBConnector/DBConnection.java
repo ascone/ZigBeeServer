@@ -6,6 +6,8 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.Query;
 
+import org.xml.sax.ErrorHandler;
+
 import model.Device;
 import model.SensorData;
 import model.Sensoren;
@@ -13,8 +15,8 @@ import model.UuidShortLog;
 
 //zig_feed pw: Efedemini555
 public class DBConnection {
-	
 
+	static ErrorHandler err;
 //	public static void main(String args[]){                 Zum Testen Nutzen
 //		ParseAndWrite("1.4.1.wert123#1.5.1.2erwert");
 //	}
@@ -46,6 +48,7 @@ public static int HowManyEntriesInSensorData(){
 		List<SensorData> eintraegeSensorData = q1.getResultList();
 		return eintraegeSensorData.size();
 	}catch(Exception e){
+		 err=(ErrorHandler) new TcpConnection.ErrorHandler("Fehler beim checken der Sensor Daten :" + e.getMessage() );
 		return -1;
 	}	
 }
@@ -54,6 +57,8 @@ public static boolean TestDB(){
 	try{
 		Query q1 = EntityManagerUtil.em.createQuery("SELECT e FROM SensorData e ");		
 	}catch(Exception e){
+		
+		 err=(ErrorHandler) new TcpConnection.ErrorHandler("Fehler: Db offline?! :" + e.getMessage() );
 		return false;
 	}
 	return true;
