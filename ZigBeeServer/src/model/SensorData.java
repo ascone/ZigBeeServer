@@ -16,6 +16,7 @@ public class SensorData implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
+	@Table(name="Sensor_Data")
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int idSensor_Data;
 
