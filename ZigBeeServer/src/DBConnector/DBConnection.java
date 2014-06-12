@@ -42,7 +42,7 @@ public static void ParseAndWrite(String raw){
 }
 
 public static int HowManyEntriesInSensorData(){
-	
+	//probieren EntityManagerUtil.load();
 	try{
 		Query q1 = EntityManagerUtil.em.createQuery("SELECT e FROM SensorData e ");
 		List<SensorData> eintraegeSensorData = q1.getResultList();
