@@ -22,7 +22,6 @@ public class DBConnection {
 //	}
 	
 public static void ParseAndWrite(String raw){
-	EntityManagerUtil.load();
 	String CSUID= new String() ,ShortCSUID= new String(),SensorID= new String(),Wert= new String();
 	
 	//Reihenfolge : 1.CSUID 2.ShortID 3.SensorID 4.Wert 
