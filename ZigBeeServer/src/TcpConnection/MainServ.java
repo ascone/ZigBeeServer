@@ -3,16 +3,16 @@ package TcpConnection;
  * ZigBee Server -- MainServ.java
  * von Tobias Orth	951311
  * 13.05.2014 - V1.0
- * FÃ¼r das ZigBee Projekt wird ein Server benÃ¶tigt
+ * Für das ZigBee Projekt wird ein Server benötigt
  * der die Daten der einzelnen Sensoren entgegen nimmt 
- * und fÃ¼r die Speicherung in der Datenbank vorbereitet. 
+ * und für die Speicherung in der Datenbank vorbereitet. 
  * 
  * 15.05.214 UPDATE V1.1
- * -Errhandler samt Logfunktion hinzugefÃ¼gt
+ * -Errhandler samt Logfunktion hinzugefügt
  * -Code Cleanup
  * -TCP Verbindung erfolgreich getestet (Empfangen und Verarbeiten von Daten)
  * 
- * Die Datenbank wird Ã¼ber die JPA-API gestellt(Anton Schneider) 
+ * Die Datenbank wird über die JPA-API gestellt(Anton Schneider) 
  */
 
 
@@ -33,7 +33,7 @@ import DBConnector.DBConnection;
 /*Eigene Klasse*/
 public class MainServ {
 
-	private static final String VERSION = "1.9";
+	private static final String VERSION = "1.10";
 	static ErrorHandler error;
 	
 	  public static void main (String args[]) {   														
@@ -62,7 +62,7 @@ public class MainServ {
 
 class Connection extends Thread {
 	  
-	  /*BenÃ¶tiogte Objekte (Inputstream & Socket)*/
+	  /*Benötiogte Objekte (Inputstream & Socket)*/
 	  PrintWriter  out;
 	  BufferedReader in;
 	  Socket clientSocket;
@@ -178,7 +178,7 @@ class Connection extends Thread {
 		
 		
 		
-		String HEADER ="Daten Log fÃ¼r Test Verbindungen";		
+		String HEADER ="Daten Log für Test Verbindungen";		
 		
 		File dir = new File("/ZigBeeServer/Datenlog");						
 		File file =new File("/ZigBeeServer/Datenlog/daten.log");		
@@ -199,7 +199,7 @@ class Connection extends Thread {
 	        	    
 	        	    bufferWritter.write(HEADER);	//Header schreiben
 	        	    bufferWritter.newLine();		//newline
-	        	    bufferWritter.close();			//bufferedwriter SchlieÃŸen
+	        	    bufferWritter.close();			//bufferedwriter Schließen
     			}
     			catch (Exception e){error = new ErrorHandler("Fehler beim erstellen von Testdaten : " + e.getMessage());}
     		}
@@ -207,7 +207,7 @@ class Connection extends Thread {
 			
 			try
 			{
-				FileWriter fileWritter = new FileWriter(file.getAbsoluteFile(),true);	//appaned mode true(TextanhÃ¤ngen)
+				FileWriter fileWritter = new FileWriter(file.getAbsoluteFile(),true);	//appaned mode true(Textanhängen)
 	    	    BufferedWriter bufferWritter = new BufferedWriter(fileWritter);
 	    	    String daten = ErrorHandler.getTime()+" Daten erhalten!: WERT: " + input;
 	    	    
