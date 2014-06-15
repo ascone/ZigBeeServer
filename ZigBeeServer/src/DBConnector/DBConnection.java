@@ -40,11 +40,11 @@ public static void ParseAndWrite(String raw){
 	}
 }
 
-public static int HowManyEntriesInSensorData(){
+public static Number HowManyEntriesInSensorData(){
 	try{
-		Query q1 = EntityManagerUtil.em.createQuery("SELECT e FROM SensorData e ");
-		List<SensorData> eintraegeSensorData = q1.getResultList();
-		return eintraegeSensorData.size();
+		Query q1 = EntityManagerUtil.em.createQuery("SELECT COUNT(e) FROM SensorData e ");
+		Number count = (Number)q1.getSingleResult();
+		return count;
 	}catch(Exception e){
 		 err=(TcpConnection.ErrorHandler) new TcpConnection.ErrorHandler("Fehler beim checken der Sensor Daten :" + e.getMessage() );
 		return -1;
