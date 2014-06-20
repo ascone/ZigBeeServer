@@ -17,8 +17,8 @@ import model.UuidShortLog;
 public class DBConnection {
 
 	static TcpConnection.ErrorHandler err;
-//	public static void main(String args[]){                 Zum Testen Nutzen
-//		ParseAndWrite("1.4.1.wert123#1.5.1.2erwert");
+//	public static void main(String args[]){               
+//		ParseAndWrite("0x1.0x9.1.bla#0x1.0x15.1.nyan#"); zum testen nutzen
 //	}
 	
 public static void ParseAndWrite(String raw){
@@ -35,7 +35,7 @@ public static void ParseAndWrite(String raw){
 		SensorID=split_by_values[2];
 		Wert=split_by_values[3];
 		
-		checkCsuid(Integer.parseInt(CSUID),Integer.parseInt(ShortCSUID));
+		checkCsuid(Long.decode(CSUID),Long.decode(ShortCSUID));
 		fillDBWithSensorData(Integer.parseInt(SensorID),Wert);		
 	}
 }
@@ -82,7 +82,7 @@ public static boolean TestDB(){
 		    }		    		
 }	
 	
-public static void checkCsuid(int CSUID,int ShortCSUID){
+public static void checkCsuid(long CSUID,long ShortCSUID){
 		
 Query q1 = EntityManagerUtil.em.createQuery("SELECT e FROM UuidShortLog e ");
 List<UuidShortLog> eintraegeLog=q1.getResultList();
@@ -107,9 +107,8 @@ List<UuidShortLog> eintraegeLog=q1.getResultList();
 			EntityManagerUtil.em.persist(log);
 			EntityManagerUtil.em.getTransaction().commit();
 			}
-		}
-	
-}
+		}	
+	}
 
 }
 

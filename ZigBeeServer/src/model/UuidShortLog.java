@@ -22,7 +22,7 @@ public class UuidShortLog implements Serializable {
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date ttimestamp;
 
-	private int UUID_short;
+	private long UUID_short;
 
 	//bi-directional many-to-one association to Device
 	@ManyToOne
@@ -48,12 +48,12 @@ public class UuidShortLog implements Serializable {
 		this.ttimestamp = ttimestamp;
 	}
 
-	public int getUUID_short() {
+	public long getUUID_short() {
 		return this.UUID_short;
 	}
 
-	public void setUUID_short(int UUID_short) {
-		this.UUID_short = UUID_short;
+	public void setUUID_short(long shortCSUID) {
+		this.UUID_short = shortCSUID;
 	}
 
 	public Device getDevice() {
