@@ -35,6 +35,8 @@ public static void ParseAndWrite(String raw){
 		SensorID=split_by_values[2];
 		Wert=split_by_values[3];
 		
+		CSUID = CSUID.contains("0x") ? CSUID : "0x" + CSUID;
+		
 		checkCsuid(Long.decode(CSUID),Long.decode(ShortCSUID));
 		fillDBWithSensorData(Integer.parseInt(SensorID),Wert);		
 	}
